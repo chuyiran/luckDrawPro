@@ -10,8 +10,9 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: [true, "姓名不能为空"],
         unique: true,
+        index:true,
     },
-    passwords: {
+    password: {
         type: String,
         required: [true, "密码不能为空"],
         minlength: 6,

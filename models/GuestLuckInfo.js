@@ -12,7 +12,7 @@ dotenv.config({
 })
 
 //实例化User模型
-const GuestSchema = new mongoose.Schema({
+const GuestLuckInfoSchema = new mongoose.Schema({
     phone: {//手机号
         type: String,
         required: [true, "请填写手机号码！"],
@@ -21,15 +21,22 @@ const GuestSchema = new mongoose.Schema({
         trim: true,
         index: true
     },
-    name: {
+    luckCategory: {//中奖物品
         type: String,
-        required: [true, "请输入客人姓名"]
+        required: [true, "中奖品非空验证失败!"]
     },
-    luckScore: {
+    luckTime: {//中奖时间
         type: Number,
-        required: [true, "请输入积分"]
-        //min: process.env.Guest_LUCK_SCORE
+        required: [true, "中奖时间不能为空"]
     },
+
+    destroyLuck: {//核销时间
+        type: Number,
+    },
+    //isDestroyLuck:{//核销状态
+    //    type:Boolean,
+    //    default: false
+    //},
     role: {//角色
         type: String,
         enum: ['guest', 'vip'],
@@ -38,13 +45,8 @@ const GuestSchema = new mongoose.Schema({
     user: {//操作员
         type: mongoose.Schema.ObjectId,
         ref: 'User',
-        required: true
     },
-    createAt: {
-        type: Number,
-        required: [true, "创建时间不能为空"]
-    }
 })
 ////生成tokenGuest
-GuestSchema.methods.getSingleToken = getSingleToken
-module.exports = mongoose.model("Guest", GuestSchema)
+GuestLuckInfoSchema.methods.getSingleToken = getSingleToken
+module.exports = mongoose.model("GuestLuckInfo", GuestLuckInfoSchema)

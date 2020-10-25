@@ -7,6 +7,9 @@ const connentDB = require('./config/db')
 const errorHandler = require("./middleware/error")
 //引入路由文件
 const guest=require('./routes/guest')
+const user=require('./routes/user')
+const guestLuckInfo=require('./routes/guestLuckInfo')
+//const guest_luck_info=require("./routes/guestLuckInfo")
 //全局环境变量配置
 dotenv.config({
     path: './config/config.env'
@@ -20,6 +23,9 @@ app.use(express.json())
 app.use(morgan('dev'))
 //挂载路由
 app.use("/api/v1/guest",guest)
+app.use("/api/v1/user",user)
+app.use("/api/v1/guestLuckInfo",guestLuckInfo)
+
 //使用异常捕获
 app.use(errorHandler)
 //定义端口
